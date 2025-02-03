@@ -1,0 +1,17 @@
+{% extends "crudapp/base.html" %}
+
+{% block content %}
+
+<br>
+<br>
+<div class="container">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Login</button>  {# Add a submit button #}
+</form>
+
+</div>
+
+{% endblock %}

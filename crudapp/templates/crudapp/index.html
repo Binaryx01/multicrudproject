@@ -1,0 +1,34 @@
+{% extends "crudapp/base.html" %}
+
+
+{% block content %}
+
+<ul>
+
+    {% for post in posts%}
+    <br>
+    curent user {{user.id}}
+    <li>{{post.title}}</li>
+    <small>Posted by - {{post.author.id}} </small>
+    <small>{{post.author.username }}</small>
+{% if user.is_authenticated %}
+
+{% if user.id == post.author.id%}
+
+
+
+    <a href="#"><small>edit</small></a>
+    <a href="#"><small>delete</small></a>
+    <hr>
+    {% endif %}
+    {% endif %}
+
+ 
+    {%endfor%}
+    <ul>
+
+
+
+
+
+{% endblock %}

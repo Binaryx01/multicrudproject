@@ -7,18 +7,18 @@
 
     {% for post in posts%}
     <br>
-    curent user {{user.id}}
+   
     <li>{{post.title}}</li>
     <small>Posted by - {{post.author.id}} </small>
     <small>{{post.author.username }}</small>
-{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
 
-{% if user.id == post.author.id%}
+    {% if user.id == post.author.id%}
 
 
 
-    <a href="#"><small>edit</small></a>
-    <a href="#"><small>delete</small></a>
+    <a href="{% url 'update_post' post.id %}"><small>update</small></a>
+    <a href="{% url 'delete_post' post.id %}"><small>delete</small></a>
     <hr>
     {% endif %}
     {% endif %}

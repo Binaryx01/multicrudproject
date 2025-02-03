@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
@@ -22,6 +22,35 @@ def create_post(request):
     
     return render(request, 'crudapp/create_post.html', {'form': form})
         
+        
+        
+        
+def update_post(request, id):
+    post = get_object_or_404(Post, id=id)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)  
+        if form.is_valid():  
+            form.save()
+            return redirect('index')
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, "crudapp/update_post.html", {'form': form, 'post': post})  # Fix render dictionary
+
+
+
+
+def delete_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect('index')  
+
+    return render(request, "crudapp/delete_post.html", {'post': post})  # Fix template & remove form
+
+
+
 
 
 def register_user(request):
@@ -52,7 +81,11 @@ def login_user(request):
         
     return render(request, 'crudapp/login_user.html', {'form': form})
     
+    
+    
 def logout_user(request):
     logout(request)
     return redirect('index')
+    
+    
     
